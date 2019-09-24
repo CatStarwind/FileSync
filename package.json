@@ -1,0 +1,95 @@
+{
+	"name": "filesync",
+	"displayName": "File Sync",
+	"description": "Sync file and folders.",
+	"version": "0.0.1",
+	"publisher": "CatStarwind",
+	"engines": {
+		"vscode": "^1.38.0"
+	},
+	"categories": [
+		"Other"
+	],
+	"activationEvents": [ "*" ],
+	"main": "./out/extension.js",
+	"contributes": {
+		"commands": [
+			{
+				"command": "filesync.enable",
+				"title": "File Sync: Enable"
+			}
+			,{
+				"command": "filesync.disable"
+				,"title": "File Sync: Disable"
+			}
+		]
+		,"configuration":[
+			{
+				"title": "FileSync",
+				"properties": {
+					"filesync.mappings":{
+						"title": "Mappings"
+						, "description": "An array of objects (maps) that link a Source folder to one or more Destination folders."
+						, "scope": "machine"
+						, "type": "array"
+						, "items": {
+							"type": "object"
+							, "properties": {
+								"source": {
+									"title": "Source Folder"
+									, "description": "Path of source source folder to sync across destinations."
+									, "type": "string"
+								}
+								,"destination": {
+									"title": "Destination Folders"
+									, "description": "Folders to be synced."
+									, "oneOf": [
+										{ "type": "string", "title": "Destination Folder", "description": "Path of folder to be synced."}
+										, { "type": "array", "items": { "type": "string", "title": "Path of Destination Folder" }, "uniqueItems": true}
+										, {
+											"type": "array"
+											, "items": {
+												"type": "object"
+												, "title": "Destination Folder"
+												, "description": "Name and Path of a folder to be synced."
+												, "properties": {
+													"name": { "type": "string"}
+													, "path": {"type": "string"}
+													, "active": {"type": "boolean"}
+												}
+												, "required": ["name", "path"]
+												, "additionalProperties": false
+											}
+											,"uniqueItems": true
+										}
+									]
+								}
+							}
+							, "required": ["source", "destination"]
+							, "additionalProperties": false
+						}
+						, "uniqueItems": true
+					}
+				}
+			}
+		]
+	},
+	"scripts": {
+		"vscode:prepublish": "npm run compile",
+		"compile": "tsc -p ./",
+		"watch": "tsc -watch -p ./",
+		"pretest": "npm run compile",
+		"test": "node ./out/test/runTest.js"
+	},
+	"devDependencies": {
+		"@types/glob": "^7.1.1",
+		"@types/mocha": "^5.2.6",
+		"@types/node": "^10.12.21",
+		"@types/vscode": "^1.38.0",
+		"glob": "^7.1.4",
+		"mocha": "^6.1.4",
+		"typescript": "^3.3.1",
+		"tslint": "^5.12.1",
+		"vscode-test": "^1.2.0"
+	}
+}
