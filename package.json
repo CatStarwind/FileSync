@@ -1,16 +1,19 @@
 {
 	"name": "filesync",
-	"displayName": "File Sync",
-	"description": "Sync file and folders.",
-	"version": "0.0.1",
+	"version": "0.1.0",
 	"publisher": "CatStarwind",
 	"engines": {
 		"vscode": "^1.38.0"
 	},
+	"license": "AGPL-3.0-or-later",
+	"displayName": "File Sync",
+	"description": "Sync a workbench to specified destination folders.",
 	"categories": [
 		"Other"
 	],
-	"activationEvents": [ "*" ],
+	"keywords": ["filemanagement","sync"],
+	"galleryBanner": {},
+	"preview": false,
 	"main": "./out/extension.js",
 	"contributes": {
 		"commands": [
@@ -74,13 +77,10 @@
 			}
 		]
 	},
-	"scripts": {
-		"vscode:prepublish": "npm run compile",
-		"compile": "tsc -p ./",
-		"watch": "tsc -watch -p ./",
-		"pretest": "npm run compile",
-		"test": "node ./out/test/runTest.js"
-	},
+	"activationEvents": [ "*" ],
+	"markdown": "github",
+	"qna": "marketplace",
+	"dependencies": {},
 	"devDependencies": {
 		"@types/glob": "^7.1.1",
 		"@types/mocha": "^5.2.6",
@@ -91,5 +91,18 @@
 		"typescript": "^3.3.1",
 		"tslint": "^5.12.1",
 		"vscode-test": "^1.2.0"
+	},
+	"extensionPack": [],
+	"extensionDependencies": [],
+	"scripts": {
+		"vscode:prepublish": "npm run compile",
+		"compile": "tsc -p ./",
+		"watch": "tsc -watch -p ./",
+		"pretest": "npm run compile",
+		"test": "node ./out/test/runTest.js"
+	},
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/CatStarwind/FileSync"
 	}
 }
