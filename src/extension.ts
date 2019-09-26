@@ -26,11 +26,11 @@ export function activate(context: vscode.ExtensionContext) {
 		"enabled": false
 		,"debug": true
 		,"onSave": <vscode.Disposable>{}
-		,"enable": function() {
+		,"enable": function(auto:boolean = false) {
 			if(!this.enabled){
 				this.log("Enabling save listener...");
 
-				//Check if workspace.
+				//Check if workspace/folder.
 				let root = vscode.workspace.workspaceFolders ? vscode.workspace.workspaceFolders[0].uri.fsPath : "";
 				if(root !== ""){
 					//Look for mapping.
@@ -41,9 +41,10 @@ export function activate(context: vscode.ExtensionContext) {
 						this.onSave = vscode.workspace.onDidSaveTextDocument(this.syncSave, map);
 						context.subscriptions.push(this.onSave);
 						this.enabled = true;
+						vscode.window.showInformationMessage("File Sync is Active.");
 						this.log("Save listener enabled.");
 					} else {
-						vscode.window.showErrorMessage("No mapping available! File Sync disabled.");
+						if(!auto) { vscode.window.showErrorMessage("No mapping available!"); }
 						this.log("Failed! Not mapped.");
 					}
 
@@ -83,7 +84,7 @@ export function activate(context: vscode.ExtensionContext) {
 							*/
 							filesync.log(`Synced: ${file.fileName} -> ${dest.fsPath}`);
 							vscode.window.setStatusBarMessage(`$(file-symlink-file) ${file.fileName} synced to ${dest.fsPath}`, 5*1000);
-						}, err => { console.log(err); vscode.window.showErrorMessage("Error Syncing", err); });
+						}, err => { console.log(err); vscode.window.showErrorMessage("Error Syncing:\n"+err.message); });
 						//}, (...args) => { console.log(args); });
 
 				} else if(Array.isArray(this.destination)){
@@ -115,7 +116,7 @@ export function activate(context: vscode.ExtensionContext) {
 	context.subscriptions.push(vscode.commands.registerCommand('filesync.disable', filesync.disable, filesync));
 
 	//Vroom
-	filesync.enable();
+	filesync.enable(true);
 }
 
 // this method is called when your extension is deactivated
