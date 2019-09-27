@@ -54,7 +54,7 @@ export class FileSync {
 
 				if(map){
 					//Mapping found, enable FileSync for map.
-					this.onSave = vscode.workspace.onDidSaveTextDocument(this.syncSave, map);
+					this.onSave = vscode.workspace.onDidSaveTextDocument((file) => { if(map){ this.syncSave(map, file); } });
 					this.context.subscriptions.push(this.onSave);
 					this.enabled = true;
 					vscode.window.showInformationMessage("File Sync is Active.");
@@ -87,17 +87,18 @@ export class FileSync {
 		return maps ? maps : new Array<Mapping>();
 	}
 
-	syncSave(this:Mapping, file: vscode.TextDocument){
+	syncSave(map: Mapping, file: vscode.TextDocument){
+
 		//Check if saved file is part of Map
-		if(file.fileName.toLowerCase().startsWith(this.source.toLowerCase())){
-			let filePath: string = file.fileName.substr(this.source.length);
+		if(file.fileName.toLowerCase().startsWith(map.source.toLowerCase())){
+			let filePath: string = file.fileName.substr(map.source.length);
 
-			//Figure out Destination
-			if(typeof this.destination === "string"){
+			//Determine Destination
+			if(typeof map.destination === "string"){
 				//Single Destination
-				let dest = vscode.Uri.file(this.destination + filePath);
+				let dest = vscode.Uri.file(map.destination + filePath);
 
-				console.log(`FileSync: Attempting ${file.fileName} -> ${dest.fsPath}`);
+				this.log(`Attempting ${file.fileName} -> ${dest.fsPath}`);
 				vscode.workspace.fs.copy(file.uri, dest, {overwrite: true})
 					.then(val => {
 						/*
@@ -106,14 +107,13 @@ export class FileSync {
 						this.sbar.show();
 						setTimeout(() => {this.sbar.hide();} , 5*1000);
 						*/
-						console.log("FileSync: Success");
+						this.log("Success");
 						vscode.window.setStatusBarMessage(`$(file-symlink-file) ${file.fileName} synced to ${dest.fsPath}`, 5*1000);
-					}, err => { console.log(err); vscode.window.showErrorMessage("Error Syncing:\n"+err.message); });
+					}, err => { this.log("Error:\t"+err.message); vscode.window.showErrorMessage("Error:\t"+err.message); });
 					//}, (...args) => { console.log(args); });
-
-			} else if(Array.isArray(this.destination)){
+			} else if(Array.isArray(map.destination)){
 				//Multi Destination
-				for (let dest of this.destination){
+				for (let dest of map.destination){
 					if(typeof dest === "string"){
 						//Simple Destination
 					} else {
