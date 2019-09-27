@@ -8,18 +8,19 @@ Multiple mappings supported.
 
 ```json
 ,"filesync.mappings": [
-		{ "source": "C:\\Dev\\Apple", "destination": "Z:\\Stage\\Apple"}
-		, {
-			"source": "C:\\Dev\\Peach"
-			, "destination": [ "Y:\\Stage\\Peach", "Z:\\Live\\Peach" ] }
-		, {
-			"source": "C:\\Dev\\Orange"
-			,"destination": [
-				{ "path": "Y:\\Stage\\Orange", "name": "Stage" }
-				, {"path": "Z:\\Live\\Orange", "name": "Live" }
-			]
-		}
-	]
+	{ "source": "C:\\Dev\\Apple", "destination": "Z:\\Stage\\Apple"}
+	, {
+		"source": "C:\\Dev\\Peach"
+		, "destination": [ "Y:\\Stage\\Peach", "Z:\\Live\\Peach" ]
+	}
+	, {
+		"source": "C:\\Dev\\Orange"
+		,"destination": [
+			{ "path": "Y:\\Stage\\Orange", "name": "Stage" }
+			, {"path": "Z:\\Live\\Orange", "name": "Live" }
+		]
+	}
+]
 ```
 
 ## Requirements
