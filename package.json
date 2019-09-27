@@ -1,6 +1,6 @@
 {
 	"name": "filesync",
-	"version": "0.1.0",
+	"version": "0.1.1",
 	"publisher": "CatStarwind",
 	"engines": {
 		"vscode": "^1.38.0"
