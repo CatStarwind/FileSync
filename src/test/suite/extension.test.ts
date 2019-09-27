@@ -4,21 +4,24 @@ import { before } from 'mocha';
 // You can import and use all API from the 'vscode' module
 // as well as import your extension to test it
 import * as vscode from 'vscode';
-// import * as myExtension from '../extension';
+import { FileSync } from '../../fileSync';
 
 suite('Extension Test Suite', () => {
-	let testRoot = "C:\\Temp\\TestBed";
-	let devRoot = testRoot+"\\Dev\\Apple";
-	let stageRoot = testRoot+"\\Stage\\Apple";
-	let liveRoot = testRoot+"\\Live\\Apple";
+	let filesync: FileSync;
+
 
 	before(() => {
-		vscode.workspace.updateWorkspaceFolders(0, null, {uri: vscode.Uri.file(testRoot+devRoot)} );
+		let fsExt = vscode.extensions.getExtension<FileSync>('catstarwind.filesync');
+		if(fsExt){
+			filesync = fsExt.exports;
+			filesync.debug = false;
+		} else {
+			throw Error("Catastrophic.");
+		}
 		vscode.window.showInformationMessage('Start all tests.');
 	});
 
-	test('Sample test', () => {
-		assert.equal(-1, [1, 2, 3].indexOf(5));
-		assert.equal(-1, [1, 2, 3].indexOf(0));
+	test('Non Mapped Folder', () => {
+		assert.ok(!filesync.enabled);
 	});
 });

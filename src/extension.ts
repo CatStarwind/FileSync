@@ -7,6 +7,8 @@ export function activate(context: vscode.ExtensionContext) {
 
 	//Vroom
 	filesync.enable(true);
+
+	return filesync;
 }
 
 // this method is called when your extension is deactivated
