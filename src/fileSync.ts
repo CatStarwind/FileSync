@@ -16,6 +16,7 @@ export class FileSync {
 	debug: boolean;
 	onSave: vscode.Disposable;
 	channel: vscode.OutputChannel;
+	//sbar: vscode.StatusBarItem;
 
 	constructor(context: vscode.ExtensionContext){
 		this.context = context;
@@ -26,6 +27,12 @@ export class FileSync {
 		//Set up log output
 		this.channel = vscode.window.createOutputChannel("FileSync");
 		context.subscriptions.push(this.channel);
+
+		/*
+		//Set up status bar
+		this.sbar = vscode.window.createStatusBarItem();
+		context.subscriptions.push(this.sbar);
+		*/
 
 		// Refresh FileSync on Config change.
 		context.subscriptions.push(vscode.workspace.onDidChangeConfiguration((config)=>{
