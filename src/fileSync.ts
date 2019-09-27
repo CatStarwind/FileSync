@@ -15,12 +15,17 @@ export class FileSync {
 	enabled: boolean;
 	debug: boolean;
 	onSave: vscode.Disposable;
+	channel: vscode.OutputChannel;
 
 	constructor(context: vscode.ExtensionContext){
 		this.context = context;
 		this.enabled = false;
 		this.debug = true;
 		this.onSave = <vscode.Disposable>{};
+
+		//Set up log output
+		this.channel = vscode.window.createOutputChannel("FileSync");
+		context.subscriptions.push(this.channel);
 
 		// Refresh FileSync on Config change.
 		context.subscriptions.push(vscode.workspace.onDidChangeConfiguration((config)=>{
@@ -35,7 +40,6 @@ export class FileSync {
 		context.subscriptions.push(vscode.commands.registerCommand('filesync.enable', this.enable, this));
 		// Register Disable command.
 		context.subscriptions.push(vscode.commands.registerCommand('filesync.disable', this.disable, this));
-
 	}
 
 	enable(auto:boolean = false) {
@@ -54,13 +58,13 @@ export class FileSync {
 					this.context.subscriptions.push(this.onSave);
 					this.enabled = true;
 					vscode.window.showInformationMessage("File Sync is Active.");
-					this.log("Save listener enabled.");
+					this.log(`Save listener enabled for ${map.source}.`);
 				} else {
 					if(!auto) { vscode.window.showErrorMessage("No mapping available!"); }
-					this.log("Failed! Not mapped.");
+					this.log(`Failed! ${root} not mapped.`);
 				}
 
-			} else { this.log("Aborting, not a workspace."); }
+			} else { this.log("Aborting, not in a workspace."); }
 
 		} else {
 			this.log("Save listener already enabled.");
@@ -122,5 +126,6 @@ export class FileSync {
 
 	log(msg: any) {
 		if(this.debug) { console.log("FileSync:", msg); }
+		this.channel.appendLine(msg);
 	}
 }
