@@ -15,7 +15,6 @@ suite('Extension Test Suite', () => {
 	let scream = function(ah: any){ if(false) { console.log("scream: " + (ah ? ah : "√")); } };
 	let sleep = function(ms: number){ return new Promise(r => setTimeout(r,ms)); };
 
-
 	before(async () => {
 		let fsExt = vscode.extensions.getExtension<FileSync>('catstarwind.filesync');
 		if(fsExt){

@@ -16,7 +16,7 @@ export class FileSync {
 	debug: boolean;
 	onSave: vscode.Disposable;
 	channel: vscode.OutputChannel;
-	//sbar: vscode.StatusBarItem;
+	sbar: vscode.StatusBarItem;
 
 	constructor(context: vscode.ExtensionContext){
 		this.context = context;
@@ -28,11 +28,11 @@ export class FileSync {
 		this.channel = vscode.window.createOutputChannel("FileSync");
 		context.subscriptions.push(this.channel);
 
-		/*
 		//Set up status bar
-		this.sbar = vscode.window.createStatusBarItem();
+		this.sbar = vscode.window.createStatusBarItem(vscode.StatusBarAlignment.Left, 1);
+		this.sbar.text = "$(file-symlink-file)";
+		this.sbar.tooltip = "File Sync is Active";
 		context.subscriptions.push(this.sbar);
-		*/
 
 		// Refresh FileSync on Config change.
 		context.subscriptions.push(vscode.workspace.onDidChangeConfiguration((config)=>{
@@ -64,6 +64,7 @@ export class FileSync {
 					this.onSave = vscode.workspace.onDidSaveTextDocument((file) => { if(map){ this.syncSave(map, file); } });
 					this.context.subscriptions.push(this.onSave);
 					this.enabled = true;
+					this.sbar.show();
 					vscode.window.showInformationMessage("File Sync is Active.");
 					this.log(`Save listener enabled for ${map.source}.`);
 				} else {
@@ -83,6 +84,7 @@ export class FileSync {
 			this.log("Disabling save listener.");
 			this.onSave.dispose();
 			this.enabled = false;
+			this.sbar.hide();
 		} else {
 			this.log("Save listener already disabled.");
 		}
@@ -115,7 +117,7 @@ export class FileSync {
 						setTimeout(() => {this.sbar.hide();} , 5*1000);
 						*/
 						this.log("Success");
-						vscode.window.setStatusBarMessage(`$(file-symlink-file) ${file.fileName} synced to ${dest.fsPath}`, 5*1000);
+						vscode.window.setStatusBarMessage(`${file.fileName} synced to ${dest.fsPath}`, 5*1000);
 					}, err => { this.log("Error:\t"+err.message); vscode.window.showErrorMessage("Error:\t"+err.message); });
 					//}, (...args) => { console.log(args); });
 			} else if(Array.isArray(map.destination)){
