@@ -29,7 +29,7 @@ export class FileSync {
 		context.subscriptions.push(this.channel);
 
 		//Set up status bar
-		this.sbar = vscode.window.createStatusBarItem(vscode.StatusBarAlignment.Left, 1);
+		this.sbar = vscode.window.createStatusBarItem();
 		this.sbar.text = "$(file-symlink-file)";
 		this.sbar.tooltip = "File Sync is Active";
 		context.subscriptions.push(this.sbar);
@@ -109,17 +109,11 @@ export class FileSync {
 
 				this.log(`Attempting ${file.fileName} -> ${dest.fsPath}`);
 				vscode.workspace.fs.copy(file.uri, dest, {overwrite: true})
-					.then(val => {
-						/*
-						this.sbar.color = "statusBarItem.prominentForeground";
-						this.sbar.text = `$(sync) ${file.fileName} has been synced -> ${dest.fsPath}`;
-						this.sbar.show();
-						setTimeout(() => {this.sbar.hide();} , 5*1000);
-						*/
+					.then(() => {
 						this.log("Success");
-						vscode.window.setStatusBarMessage(`${file.fileName} synced to ${dest.fsPath}`, 5*1000);
+						this.sbar.text = this.sbar.text + ` ${file.fileName} synced to ${dest.fsPath}`;
+						setTimeout(() => { this.sbar.text = "$(file-symlink-file)";}, 5*1000);
 					}, err => { this.log("Error:\t"+err.message); vscode.window.showErrorMessage("Error:\t"+err.message); });
-					//}, (...args) => { console.log(args); });
 			} else if(Array.isArray(map.destination)){
 				//Multi Destination
 				for (let dest of map.destination){
