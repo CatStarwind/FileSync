@@ -25,7 +25,7 @@
 			"request": "launch",
 			"runtimeExecutable": "${execPath}",
 			"args": [
-				"${workspaceFolder}/src/test/TestBed/Dev/Orange",
+				"${workspaceFolder}/out/test/suite/TestBed/Dev/Orange",
 				"--extensionDevelopmentPath=${workspaceFolder}",
 				"--extensionTestsPath=${workspaceFolder}/out/test/suite/index",
 				"--disable-extensions"

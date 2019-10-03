@@ -5,7 +5,7 @@ interface Destination {
 	name: string;
 }
 
-interface Mapping {
+export interface Mapping {
 	source: string;
 	destination: string | string[] | Destination[];
 }
