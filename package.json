@@ -12,7 +12,10 @@
 		"Other"
 	],
 	"keywords": ["filemanagement","sync"],
-	"galleryBanner": {},
+	"galleryBanner": {
+		"color": "#007000",
+		"theme": "dark"
+	},
 	"preview": false,
 	"main": "./out/extension.js",
 	"contributes": {
