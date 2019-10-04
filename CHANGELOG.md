@@ -10,6 +10,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Support for multiple complex destinations.
 - Ignore pattern support.
 
+## [0.2.0] - 2019-10-04
+### Added
+- Added File Sync status bar to indicate when File Sync is active.
+- Added File Sync output channel.
+
 ## [0.1.1] - 2019-09-27
 ### Changed
 - Suppressed 'No Mapping Found' message unless manually enabling File Sync.
@@ -20,5 +25,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Support for single destination mapping.
 
 [Unreleased]: https://github.com/CatStarwind/FileSync/compare/v0.1.1...HEAD
+[0.2.0]: https://github.com/CatStarwind/FileSync/compare/v0.1.1...v0.2.0
 [0.1.1]: https://github.com/CatStarwind/FileSync/compare/v0.1.0...v0.1.1
 [0.1.0]: https://github.com/CatStarwind/FileSync/releases/tag/v0.1.0

@@ -1,6 +1,6 @@
 {
 	"name": "filesync",
-	"version": "0.1.1",
+	"version": "0.2.0",
 	"publisher": "CatStarwind",
 	"engines": {
 		"vscode": "^1.38.0"
@@ -11,7 +11,10 @@
 	"categories": [
 		"Other"
 	],
-	"keywords": ["filemanagement","sync"],
+	"keywords": [
+		"filemanagement",
+		"sync"
+	],
 	"galleryBanner": {
 		"color": "#007000",
 		"theme": "dark"
@@ -23,64 +26,89 @@
 			{
 				"command": "filesync.enable",
 				"title": "File Sync: Enable"
+			},
+			{
+				"command": "filesync.disable",
+				"title": "File Sync: Disable"
 			}
-			,{
-				"command": "filesync.disable"
-				,"title": "File Sync: Disable"
-			}
-		]
-		,"configuration":[
+		],
+		"configuration": [
 			{
 				"title": "FileSync",
 				"properties": {
-					"filesync.mappings":{
-						"title": "Mappings"
-						, "description": "An array of objects (maps) that link a Source folder to one or more Destination folders."
-						, "scope": "machine"
-						, "type": "array"
-						, "items": {
-							"type": "object"
-							, "properties": {
+					"filesync.mappings": {
+						"title": "Mappings",
+						"description": "An array of objects (maps) that link a Source folder to one or more Destination folders.",
+						"scope": "machine",
+						"type": "array",
+						"items": {
+							"type": "object",
+							"properties": {
 								"source": {
-									"title": "Source Folder"
-									, "description": "Path of source source folder to sync across destinations."
-									, "type": "string"
-								}
-								,"destination": {
-									"title": "Destination Folders"
-									, "description": "Folders to be synced."
-									, "oneOf": [
-										{ "type": "string", "title": "Destination Folder", "description": "Path of folder to be synced."}
-										, { "type": "array", "items": { "type": "string", "title": "Path of Destination Folder" }, "uniqueItems": true}
-										, {
-											"type": "array"
-											, "items": {
-												"type": "object"
-												, "title": "Destination Folder"
-												, "description": "Name and Path of a folder to be synced."
-												, "properties": {
-													"name": { "type": "string"}
-													, "path": {"type": "string"}
-													, "active": {"type": "boolean"}
-												}
-												, "required": ["name", "path"]
-												, "additionalProperties": false
-											}
-											,"uniqueItems": true
+									"title": "Source Folder",
+									"description": "Path of source source folder to sync across destinations.",
+									"type": "string"
+								},
+								"destination": {
+									"title": "Destination Folders",
+									"description": "Folders to be synced.",
+									"oneOf": [
+										{
+											"type": "string",
+											"title": "Destination Folder",
+											"description": "Path of folder to be synced."
+										},
+										{
+											"type": "array",
+											"items": {
+												"type": "string",
+												"title": "Path of Destination Folder"
+											},
+											"uniqueItems": true
+										},
+										{
+											"type": "array",
+											"items": {
+												"type": "object",
+												"title": "Destination Folder",
+												"description": "Name and Path of a folder to be synced.",
+												"properties": {
+													"name": {
+														"type": "string"
+													},
+													"path": {
+														"type": "string"
+													},
+													"active": {
+														"type": "boolean"
+													}
+												},
+												"required": [
+													"name",
+													"path"
+												],
+												"additionalProperties": false
+											},
+											"uniqueItems": true
 										}
 									]
 								}
-							}
-							, "required": ["source", "destination"]
-							, "additionalProperties": false
-						}
-						, "uniqueItems": true
+							},
+							"required": [
+								"source",
+								"destination"
+							],
+							"additionalProperties": false
+						},
+						"uniqueItems": true
 					}
 				}
 			}
 		]
 	},
-	"activationEvents": [ "*" ],
+	"activationEvents": [
+		"*"
+	],
 	"markdown": "github",
 	"qna": "marketplace",
 	"dependencies": {},
