@@ -3,6 +3,7 @@ import * as vscode from 'vscode';
 interface Destination {
 	path: string;
 	name: string;
+	active: boolean;
 }
 
 export interface Mapping {
@@ -105,26 +106,32 @@ export class FileSync {
 			//Determine Destination
 			if(typeof map.destination === "string"){
 				//Single Destination
-				let dest = vscode.Uri.file(map.destination + filePath);
+				this.syncFile(file, vscode.Uri.file(map.destination + filePath))
 
-				this.log(`Attempting ${file.fileName} -> ${dest.fsPath}`);
-				vscode.workspace.fs.copy(file.uri, dest, {overwrite: true})
-					.then(() => {
-						this.log("Success");
-						this.sbar.text = this.sbar.text + ` ${file.fileName} synced to ${dest.fsPath}`;
-						setTimeout(() => { this.sbar.text = "$(file-symlink-file)";}, 5*1000);
-					}, err => { this.log("Error:\t"+err.message); vscode.window.showErrorMessage("Error:\t"+err.message); });
 			} else if(Array.isArray(map.destination)){
 				//Multi Destination
 				for (let dest of map.destination){
 					if(typeof dest === "string"){
 						//Simple Destination
-					} else {
+						this.syncFile(file, vscode.Uri.file(dest + filePath));
+
+					} else if(dest.active) {
 						//Complex Destination
+						this.syncFile(file, vscode.Uri.file(dest.path + filePath));
 					}
 				}
 			}
 		}
+	}
+
+	syncFile(file: vscode.TextDocument, dest: vscode.Uri){
+		this.log(`Attempting ${file.fileName} -> ${dest.fsPath}`);
+		vscode.workspace.fs.copy(file.uri, dest, {overwrite: true})
+			.then(() => {
+				this.log(`Success! (${dest.fsPath})`);
+				this.sbar.text = this.sbar.text + (this.sbar.text === "$(file-symlink-file)" ? ` ${file.fileName} synced to ${dest.fsPath}` : ` & ${dest.fsPath}` );
+				setTimeout(() => { this.sbar.text = "$(file-symlink-file)";}, 5*1000);
+			}, err => { this.log(`Failed! (${dest.fsPath})\n↳\t${err.message}`); vscode.window.showErrorMessage(err.message); });
 	}
 
 	log(msg: any) {
