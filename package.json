@@ -60,37 +60,39 @@
 										},
 										{
 											"type": "array",
-											"items": {
-												"type": "string",
-												"title": "Path of Destination Folder"
-											},
-											"uniqueItems": true
-										},
-										{
-											"type": "array",
-											"items": {
-												"type": "object",
-												"title": "Destination Folder",
-												"description": "Name and Path of a folder to be synced.",
-												"properties": {
-													"name": {
-														"type": "string"
-													},
-													"path": {
-														"type": "string"
-													},
-													"active": {
-														"type": "boolean"
+											"title": "Destinations",
+											"items":{
+												"anyOf": [
+													{
+														"type": "string",
+														"title": "Destination Folder",
+														"description": "Path of folder to be synced."
 													}
-												},
-												"required": [
-													"name",
-													"path",
-													"active"
-												],
-												"additionalProperties": false
-											},
-											"uniqueItems": true
+													,{
+														"type": "object",
+														"title": "Destination",
+														"properties": {
+															"name": {
+																"type": "string", "title": "Destination name."
+															},
+															"path": {
+																"type": "string", "title": "Folder path."
+															},
+															"active": {
+																"type": "boolean", "title": "Determines if destination will be synced to."
+															}
+														},
+														"required": [
+															"name",
+															"path",
+															"active"
+														],
+														"additionalProperties": false
+													}
+
+												]
+											}
+											,"uniqueItems": true
 										}
 									]
 								}
