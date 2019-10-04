@@ -106,7 +106,7 @@ export class FileSync {
 			//Determine Destination
 			if(typeof map.destination === "string"){
 				//Single Destination
-				this.syncFile(file, vscode.Uri.file(map.destination + filePath))
+				this.syncFile(file, vscode.Uri.file(map.destination + filePath));
 
 			} else if(Array.isArray(map.destination)){
 				//Multi Destination
