@@ -1,13 +1,13 @@
 {
 	"name": "filesync",
-	"version": "0.2.0",
+	"version": "1.0.0",
 	"publisher": "CatStarwind",
 	"engines": {
 		"vscode": "^1.38.0"
 	},
 	"license": "AGPL-3.0-or-later",
 	"displayName": "File Sync",
-	"description": "Sync a workbench to specified destination folders.",
+	"description": "Sync a workbench folder's files when saving to specified destination folders.",
 	"categories": [
 		"Other"
 	],
@@ -61,25 +61,28 @@
 										{
 											"type": "array",
 											"title": "Destinations",
-											"items":{
+											"items": {
 												"anyOf": [
 													{
 														"type": "string",
 														"title": "Destination Folder",
 														"description": "Path of folder to be synced."
-													}
-													,{
+													},
+													{
 														"type": "object",
 														"title": "Destination",
 														"properties": {
 															"name": {
-																"type": "string", "title": "Destination name."
+																"type": "string",
+																"title": "Destination name."
 															},
 															"path": {
-																"type": "string", "title": "Folder path."
+																"type": "string",
+																"title": "Folder path."
 															},
 															"active": {
-																"type": "boolean", "title": "Determines if destination will be synced to."
+																"type": "boolean",
+																"title": "Determines if destination will be synced to."
 															}
 														},
 														"required": [
@@ -89,10 +92,9 @@
 														],
 														"additionalProperties": false
 													}
-
 												]
-											}
-											,"uniqueItems": true
+											},
+											"uniqueItems": true
 										}
 									]
 								}

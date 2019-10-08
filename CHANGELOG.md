@@ -6,9 +6,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 ### Added
-- Support for multiple simple destinations.
-- Support for multiple complex destinations.
 - Ignore pattern support.
+
+## [1.0.0] - 2019-10-08
+### Added
+- Multi-destination support.
 
 ## [0.2.0] - 2019-10-04
 ### Added
@@ -24,7 +26,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 - Support for single destination mapping.
 
-[Unreleased]: https://github.com/CatStarwind/FileSync/compare/v0.2.0...HEAD
+[Unreleased]: https://github.com/CatStarwind/FileSync/compare/v1.0.0...HEAD
+[1.0.0]: https://github.com/CatStarwind/FileSync/compare/v0.2.0...v1.0.0
 [0.2.0]: https://github.com/CatStarwind/FileSync/compare/v0.1.1...v0.2.0
 [0.1.1]: https://github.com/CatStarwind/FileSync/compare/v0.1.0...v0.1.1
 [0.1.0]: https://github.com/CatStarwind/FileSync/releases/tag/v0.1.0
