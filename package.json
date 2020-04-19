@@ -3,7 +3,7 @@
 	"version": "1.0.1",
 	"publisher": "CatStarwind",
 	"engines": {
-		"vscode": "^1.38.0"
+		"vscode": "^1.44.0"
 	},
 	"license": "AGPL-3.0-or-later",
 	"displayName": "File Sync",
