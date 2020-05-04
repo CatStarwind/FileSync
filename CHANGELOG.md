@@ -8,6 +8,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 - Ignore pattern support.
 
+## [1.1.0] - 2020-05-04
+### Added
+- Workspace folders support.
+
 ## [1.0.0] - 2019-10-08
 ### Added
 - Multi-destination support.
@@ -27,6 +31,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Support for single destination mapping.
 
 [Unreleased]: https://github.com/CatStarwind/FileSync/compare/v1.0.0...HEAD
+[1.1.0]: https://github.com/CatStarwind/FileSync/compare/v1.0.0...v1.1.0
 [1.0.0]: https://github.com/CatStarwind/FileSync/compare/v0.2.0...v1.0.0
 [0.2.0]: https://github.com/CatStarwind/FileSync/compare/v0.1.1...v0.2.0
 [0.1.1]: https://github.com/CatStarwind/FileSync/compare/v0.1.0...v0.1.1
