@@ -6,7 +6,7 @@ export function activate(context: vscode.ExtensionContext) {
 	let filesync = new FileSync(context);
 
 	//Vroom
-	filesync.enable(true);
+	filesync.enable();
 
 	return filesync;
 }
